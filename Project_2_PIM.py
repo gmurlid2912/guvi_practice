@@ -333,6 +333,156 @@ def configuration():
             print("User is not on the Email Subscription page", driver.current_url)
     else:
         print("User is not on the Email Configuration page", driver.current_url)
+def login_menu():
+    # username = input("Enter the username: ")
+    username = "Admin"
+    # password = input("Enter the password: ")
+    password = "admin123"
+    # Open the OrangeHRM site
+    url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    driver.implicitly_wait(10)  # provided for the site to load
+    driver.get(url)
+    # Entering username
+    luser = driver.find_element(By.NAME, 'username')
+    luser.click()
+    luser.send_keys(username)
+    print("Username Entered")
+    # Entering password
+    lpwd = driver.find_element(By.NAME, 'password')
+    lpwd.click()
+    lpwd.send_keys(password)
+    print("Password Entered")
+    # Clicking Login button
+    lbutton = driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button')
+    lbutton.click()
+    # Checking if the user has been logged in or not
+    if "dashboard" in driver.current_url.lower():
+        print("Test Case Login: Passed - Successful login")
+        time.sleep(5)
+        admin_tab()
+    else:
+        print("Test Case Login: Failed - login unsuccessful")
+        login_menu()
+def admin_tab():
+    admintab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[1]/a/span')
+    admintab.click()
+    if "viewSystemUsers" in driver.current_url:
+        print("User is viewing the admin page")
+        time.sleep(5)
+        pim_tab()
+    else:
+        print("User is not viewing the admin page", driver.current_url)
+def pim_tab():
+    pimtab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[2]/a/span')
+    pimtab.click()
+    if "viewEmployeeList" in driver.current_url:
+        print("User is viewing the PIM page")
+        time.sleep(5)
+        leave_tab()
+    else:
+        print("User is not viewing the PIM page", driver.current_url)
+def leave_tab():
+    leavetab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[3]/a/span')
+    leavetab.click()
+    if "viewLeaveList" in driver.current_url:
+        print("User is viewing the leave page")
+        time.sleep(5)
+        time_tab()
+    else:
+        print("User is not viewing the leave page", driver.current_url)
+def time_tab():
+    timetab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[4]/a/span')
+    timetab.click()
+    if "viewEmployeeTimesheet" in driver.current_url:
+        print("User is viewing the time page")
+        time.sleep(5)
+        recruitment_tab()
+    else:
+        print("User is not viewing the time page", driver.current_url)
+def recruitment_tab():
+    recruitmenttab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[5]/a/span')
+    recruitmenttab.click()
+    if "viewCandidates" in driver.current_url:
+        print("User is on the Recruitment page")
+        time.sleep(5)
+        myinfo_tab()
+    else:
+        print("User is not on the Recruitment page", driver.current_url)
+def myinfo_tab():
+    myinfotab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[6]/a/span')
+    myinfotab.click()
+    if "viewPersonalDetails" in driver.current_url:
+        print("User is on My Info Page")
+        time.sleep(5)
+        performance_tab()
+    else:
+        print("User is not on the My Info Page", driver.current_url)
+def performance_tab():
+    perftab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[7]/a/span')
+    perftab.click()
+    if "searchEvaluatePerformanceReview" in driver.current_url:
+        print("User is on the Performance Page")
+        time.sleep(5)
+        dashboard_tab()
+    else:
+        print("User is not on the Performance Page", driver.current_url)
+def dashboard_tab():
+    dashboardtab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[8]/a/span')
+    dashboardtab.click()
+    if "dashboard" in driver.current_url:
+        print("User is on the Dashboard Page")
+        time.sleep(5)
+        directory_tab()
+    else:
+        print("User is not on the Dashboard Page", driver.current_url)
+def directory_tab():
+    directorytab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[9]/a/span')
+    directorytab.click()
+    if "viewDirectory" in driver.current_url:
+        print("User is on the Directory Page")
+        time.sleep(5)
+        maintanence_tab()
+    else:
+        print("User is not on the Directory Page", driver.current_url)
+def maintanence_tab():
+    maintanencetab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[10]/a/span')
+    maintanencetab.click()
+    if "purgeEmployee" in driver.current_url:
+        print("User is on the Admin Access provider page")
+        time.sleep(5)
+        admin_pwd = driver.find_element(By.XPATH,'/html/body/div/div[1]/div[1]/form/div[3]/div/div[2]/input')
+        admin_pwd.click()
+        print("Entering the admin password")
+        password = "admin123"
+        admin_pwd.send_keys(password)
+        time.sleep(2)
+        confirm = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/form/div[4]/button[2]')
+        confirm.click()
+        print("Admin authentication is done")
+        time.sleep(5)
+        print("User is on the maintenance page")
+        time.sleep(5)
+        claim_tab()
+    else:
+        print("User is not on the maintanence page", driver.current_url)
+def claim_tab():
+    claimtab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[11]/a/span')
+    claimtab.click()
+    if "viewAssignClaim" in driver.current_url:
+        print("User is on the Claim Page")
+        time.sleep(5)
+        buzz_tab()
+    else:
+        print("User is not on Claim Page", driver.current_url)
+def buzz_tab():
+    buzztab = driver.find_element(By.XPATH, '/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[12]/a/span')
+    buzztab.click()
+    if "viewBuzz" in driver.current_url:
+        print("User is on the Buzz Page")
+        time.sleep(5)
+        exit()
+    else:
+        print("User is not on the Buzz page", driver.current_url)
 
 
 print("Choose the operation needed")
@@ -357,17 +507,12 @@ elif choose == "2":
     driver.quit()
     exit()
 elif choose == "3":
-    print("Admin Page Options Check Scenario is selected")
+    print("Menu Page Options Check Scenario is selected")
     driver = webdriver.Chrome()
     driver.maximize_window()
-    #login_menu()
+    login_menu()
     driver.quit()
     exit()
 elif choose == "4":
     print("Quit option is selected")
     exit()
-
-
-
-
-
